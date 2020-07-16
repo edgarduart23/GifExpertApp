@@ -1,23 +1,23 @@
-import React, {useState, useEffect} from 'react'
+//import React, {useState, useEffect} from 'react'
+import React from 'react'
+import { useFetchGifs } from '../hooks/useFetchGifs'
 import { GifGridItem } from './GifGridItem';
-import {getGifs} from '../helpers/getGifs';
+
 
 export const GifGrid = ({category}) => {
 
-    const [images, setImages] = useState([])
-   
     
-    useEffect(() => {
-        getGifs( category)
-            .then(setImages);
-    }, [category])
+    const {data:images,loading}= useFetchGifs(category);
+    
+   
    
 
     //getGifs();
     return (
         <>
         <h3>{ category} </h3>
-        <div className="card-grid">
+        {loading && <p>Loading</p>}
+        { <div className="card-grid">
             
 
                 {
@@ -29,9 +29,8 @@ export const GifGrid = ({category}) => {
                     ))
                 }
            
-            {/* <h3>{count}</h3> */}
-           {/*  <button onClick={()=> setCount(count + 1)}></button> */}
-        </div>
+           
+        </div> }
        </>         
     )
 }
